@@ -4,7 +4,12 @@ import ie.tudublin.Visual;
 
 public class CubeVisual extends Visual
 {
-    boolean twocubes = false;
+
+    public static Boolean isEven (Integer i) {
+
+        return (i % 2) == 0;
+
+    }
 
     public void settings()
     {
@@ -20,11 +25,6 @@ public class CubeVisual extends Visual
             getAudioPlayer().cue(0);
             getAudioPlayer().play();
             
-        }
-        if (key == '1')
-        {
-            twocubes = ! twocubes;
-
         }
     }
 
@@ -42,7 +42,8 @@ public class CubeVisual extends Visual
         
     }
 
-    float smoothedBoxSize = 0;
+    float smoothedCircleSize0 = 0;
+    float smoothedCircleSize1 = 0;
 
     public void draw()
     {
@@ -50,41 +51,67 @@ public class CubeVisual extends Visual
         background(0);
         noFill();
         lights();
-        stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255), 255, 255);
+        stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255), 50, 255);
         camera(0, 0, 0, 0, 0, -1, 0, 1, 0);
         translate(0, 0, -250);
-               
-        float boxSize = 50 + (getAmplitude() * 300);//map(average, 0, 1, 100, 400); 
-        smoothedBoxSize = lerp(smoothedBoxSize, boxSize, 0.2f);        
-        if (twocubes)
-        {
-            pushMatrix();
-            translate(-100, 0, 0);
-            rotateY(angle);
-            rotateX(angle);
-            box(smoothedBoxSize);
-            //strokeWeight(1);
-            //sphere(smoothedBoxSize);
-            popMatrix();
-            pushMatrix();
-            translate(100, 0, 0);
-            rotateY(angle);
-            rotateX(angle);
-            strokeWeight(5); 
-            box(smoothedBoxSize);
-            popMatrix();
-        }
-        else
-        {
-            rotateY(angle);
-            rotateX(angle);
-            //strokeWeight(1);
-            //sphere(smoothedBoxSize/ 2);            
-            strokeWeight(5);
-            
-            box(smoothedBoxSize);
-        }
+
+        loopcircles();
+
         angle += 0.01f;
+
+    }
+
+    public void circles() // drawing circles
+    {
+        float CircleSize0 = 50 + (getAmplitude() * 300);//map(average, 0, 1, 100, 400);
+        smoothedCircleSize0 = lerp(smoothedCircleSize0, CircleSize0, 0.2f);
+
+        rotateY(angle);
+        rotateX(angle);
+        strokeWeight(0.1f);
+        sphere(smoothedCircleSize0/ 2);
+
+        float CircleSize1 = 30 + (getAmplitude() * 1000);//map(average, 0, 1, 100, 400);
+        smoothedCircleSize1 = lerp(smoothedCircleSize1, CircleSize1, 0.4f);
+
+        stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255), 255, 255);
+        rotateY(angle);
+        rotateX(angle);
+        strokeWeight(2);
+        sphere(smoothedCircleSize1/ 2);
+    }
+
+    public void loopcircles()
+    {
+        float CircleSize0 = 50 + (getAmplitude() * 300);//map(average, 0, 1, 100, 400);
+        smoothedCircleSize0 = lerp(smoothedCircleSize0, CircleSize0, 0.2f);
+
+        float CircleSize1 = 100 + (getAmplitude() * 500);//map(average, 0, 1, 100, 400);
+        smoothedCircleSize1 = lerp(smoothedCircleSize1, CircleSize1, 1);
+
+        for (int i = 1; i < 4; i++)
+        {
+
+            if (isEven(i))
+            {
+                stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255), 255, 255);
+                strokeWeight(0.01f);
+                sphere(smoothedCircleSize0/ 2);
+                rotateY(angle * -1);
+                rotateX(angle * -1);
+
+            }
+            else
+            {
+                stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255), 50, 60);
+                strokeWeight(0.01f);
+                sphere(smoothedCircleSize1/ 2);
+                rotateY(angle);
+                rotateX(angle);
+
+            }
+        }
+
     }
     float angle = 0;
-} 
+}
