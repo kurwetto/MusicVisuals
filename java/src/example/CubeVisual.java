@@ -133,7 +133,6 @@ public class CubeVisual extends Visual
             System.out.println(i);
 
         }
-
     }
 
     public void draw()
