@@ -18,7 +18,7 @@ public abstract class Visual extends PApplet
 	private AudioBuffer ab;
 	private FFT fft;
 
-	private float amplitude  = 0;
+	public float amplitude  = 0;
 	private float smothedAmplitude = 0;
 
 	
@@ -52,15 +52,16 @@ public abstract class Visual extends PApplet
 	}
 
 	
-	public void calculateAverageAmplitude()
+	public float calculateAverageAmplitude()
 	{
 		float total = 0;
 		for(int i = 0 ; i < ab.size() ; i ++)
         {
 			total += abs(ab.get(i));
 		}
-		amplitude = total / ab.size();
-		smothedAmplitude = PApplet.lerp(smothedAmplitude, amplitude, 0.1f);
+		amplitude = total / 1000;
+		smothedAmplitude = PApplet.lerp(smothedAmplitude, amplitude, 0.01f);
+		return smothedAmplitude;
 	}
 
 
@@ -139,6 +140,12 @@ public abstract class Visual extends PApplet
 	public AudioPlayer getAudioPlayer() {
 		return ap;
 	}
+
+	public int getSpecSize()
+	{
+		return fft.specSize();
+	}
+
 
 	public FFT getFFT() {
 		return fft;

@@ -6,9 +6,9 @@ import processing.core.*;
 // This is an example of a visual that uses the audio bands
 public class AudioBandsVisual
 {
-    CubeVisual mv;
+    MyVisual mv;
 
-    public AudioBandsVisual(CubeVisual mv)
+    public AudioBandsVisual(MyVisual mv)
     {
         this.mv = mv;
     }

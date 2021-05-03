@@ -5,10 +5,10 @@ import processing.core.*;
 // This is an example of a visual that renders the waveform
 public class WaveForm
 {
-    CubeVisual mv;
+    MyVisual mv;
     float cy = 0;
 
-    public WaveForm(CubeVisual mv)
+    public WaveForm(MyVisual mv)
     {
         this.mv = mv;
         cy = this.mv.height / 2;
