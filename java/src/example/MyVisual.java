@@ -13,7 +13,7 @@ public class MyVisual extends Visual
 
     public void settings()
     {
-        size(800, 800, P3D);
+        size(800, 600, P3D);
         println("CWD: " + System.getProperty("user.dir"));
         //fullScreen(P3D, SPAN);
     }
@@ -45,7 +45,7 @@ public class MyVisual extends Visual
         //getAp().play();
         //startListening();
 
-        numCubes = (int)(getSpecSize() * strength);
+        numCubes = (int)(5+getSpecSize() * strength);
         cubes = new Cube[numCubes];
 
         for(int i = 0; i < numCubes; i++)
@@ -80,9 +80,9 @@ public class MyVisual extends Visual
             );
 
             float smothedAmplitude = calculateAverageAmplitude();
-            smothedAmplitude = PApplet.lerp(getAudioBuffer().get(i), smothedAmplitude, 0.4f);
-            line(i, cy, i+70, cy + cy * smothedAmplitude);
-            line(i*-1, cy, i*-1-70, cy + cy * smothedAmplitude);
+            smothedAmplitude = PApplet.lerp(getAudioBuffer().get(i), smothedAmplitude, 0.35f);
+            line(i, cy, i+130, cy + cy * smothedAmplitude);
+            line(i*-1, cy, i*-1-130, cy + cy * smothedAmplitude);
 
         }
     }
@@ -117,9 +117,9 @@ public class MyVisual extends Visual
                 stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255),200, 500,200);
                 strokeWeight(10);
                 sphere(smoothedCircleSize1 * 0.2f); // inner sphere
-                strokeWeight(0.002f);
+                strokeWeight(0.005f);
                 stroke(map(getSmoothedAmplitude(), 0, 1, 0, 200), 0, 191,255);
-                sphere(smoothedCircleSize1 * 139.2f); // outer sphere (stars)
+                sphere(smoothedCircleSize1 * 122.2f); // outer sphere (stars)
 
             }
         }

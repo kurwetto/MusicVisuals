@@ -18,7 +18,7 @@ public class Cube
         this.c = c;
 
         CubeX = c.random(-600 , c.width);
-        CubeY = c.random(-1000 , c.height);
+        CubeY = c.random(-300 , c.height);
         CubeZ = c.random(CubeStart, CubeMax);
 
         rotateX = c.random (0, 1);
@@ -30,7 +30,7 @@ public class Cube
     {
         c.fill(PApplet.map(c.getAmplitude() * 255, 100, 255, 0, 100), 255, 255, c.getAmplitude() * 250);
 
-        c.stroke(c.color(100* c.getAmplitude() ,200,  100 + (500 * c.getAmplitude())));
+        c.stroke(c.color(200,  100 + (500 * c.getAmplitude())));
         c.strokeWeight(1 + (c.getAmplitude() * 10));
         c.pushMatrix();
         c.translate(CubeX, CubeY, CubeZ);
