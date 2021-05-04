@@ -19,6 +19,7 @@ public abstract class Visual extends PApplet
 	private FFT fft;
 
 	public float amplitude  = 0;
+	public float amplitudeInverse =0;
 	private float smothedAmplitude = 0;
 
 	
@@ -62,6 +63,18 @@ public abstract class Visual extends PApplet
 		amplitude = total / 1000;
 		smothedAmplitude = PApplet.lerp(smothedAmplitude, amplitude, 0.01f);
 		return smothedAmplitude;
+	}
+
+	public float calculateAverageAmplitudeInverse()
+	{
+		float total = 50;
+		for(int i = 0 ; i < ab.size() ; i ++)
+		{
+			total -= abs(ab.get(i));
+		}
+		amplitudeInverse = total / 1000;
+		smothedAmplitude = PApplet.lerp(smothedAmplitude, amplitudeInverse, 0.01f);
+		return amplitudeInverse;
 	}
 
 
@@ -145,6 +158,8 @@ public abstract class Visual extends PApplet
 	{
 		return fft.specSize();
 	}
+
+
 
 
 	public FFT getFFT() {

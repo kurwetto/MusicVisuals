@@ -10,9 +10,9 @@ public class Cube
 
     float CubeX, CubeY, CubeZ;
     float rotateX, rotateY, rotateZ;
-    float sumRotX, sumRotY, sumRotZ;
+    float sumX, sumY, sumZ;
 
-    // Constructor
+
     Cube(MyVisual c)
     {
         this.c = c;
@@ -35,20 +35,21 @@ public class Cube
         c.pushMatrix();
         c.translate(CubeX, CubeY, CubeZ);
 
-        sumRotX += c.getAmplitude() * (rotateX / 3);
-        sumRotY += c.getAmplitude() * (rotateY / 3);
-        sumRotZ += c.getAmplitude() * (rotateZ / 3);
+        sumX += c.getAmplitude() * (rotateX / 3);
+        sumY += c.getAmplitude() * (rotateY / 3);
+        sumZ += c.getAmplitude() * (rotateZ / 3);
 
-        c.rotateX(sumRotX);
-        c.rotateY(sumRotY);
-        c.rotateZ(sumRotZ);
-        float boxSize = 60 + (100 * c.getSmoothedAmplitude());
+        c.rotateX(sumX);
+        c.rotateY(sumY);
+        c.rotateZ(sumZ);
+
+        float boxSize = 60 + (100 * c.getSmoothedAmplitude()); // size of cubes
         c.box(boxSize);
         c.box(10);
         c.popMatrix();
 
 
-        CubeZ += ((CubeMax * c.getAmplitude()) * 0.2f) + 1;
+        CubeZ += ((CubeMax * c.getAmplitude()) * 0.2f) + 1; // speed of cube
         if (CubeZ >= CubeMax)
         {
             CubeZ = CubeStart;

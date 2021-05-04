@@ -5,6 +5,8 @@ import processing.core.PApplet;
 
 public class MyVisual extends Visual
 {
+    Ball[] balls = new Ball[400];
+
     public static Boolean isEven (Integer i)
     {
         return (i % 2)  == 0;
@@ -13,7 +15,7 @@ public class MyVisual extends Visual
 
     public void settings()
     {
-        size(800, 600, P3D);
+        size(800, 800, P3D);
         println("CWD: " + System.getProperty("user.dir"));
         //fullScreen(P3D, SPAN);
     }
@@ -53,6 +55,10 @@ public class MyVisual extends Visual
             cubes[i] = new Cube(this);
         }
 
+        for(int i = 0; i < balls.length; i++){
+            balls[i] = new Ball(this);
+          }
+
     }
 
     float smoothedCircleSize0 = 0;
@@ -79,10 +85,10 @@ public class MyVisual extends Visual
                     , 255
             );
 
-            float smothedAmplitude = calculateAverageAmplitude();
-            smothedAmplitude = PApplet.lerp(getAudioBuffer().get(i), smothedAmplitude, 0.35f);
-            line(i, cy, i+130, cy + cy * smothedAmplitude);
-            line(i*-1, cy, i*-1-130, cy + cy * smothedAmplitude);
+            float smoothedAmplitude = calculateAverageAmplitude();
+            smoothedAmplitude = PApplet.lerp(getAudioBuffer().get(i), smoothedAmplitude, 0.35f);
+            line(i, cy, i+130, cy + cy * smoothedAmplitude);
+            line(i*-1, cy, i*-1-130, cy + cy * smoothedAmplitude);
 
         }
     }
@@ -106,6 +112,7 @@ public class MyVisual extends Visual
 
             if (isEven(i))
             {
+                colorMode(PApplet.HSB);
                 stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255), 255,255,193);
                 strokeWeight(1);
 
@@ -117,9 +124,9 @@ public class MyVisual extends Visual
                 stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255),200, 500,200);
                 strokeWeight(10);
                 sphere(smoothedCircleSize1 * 0.2f); // inner sphere
-                strokeWeight(0.005f);
+                strokeWeight(0.009f);
                 stroke(map(getSmoothedAmplitude(), 0, 1, 0, 200), 0, 191,255);
-                sphere(smoothedCircleSize1 * 122.2f); // outer sphere (stars)
+                sphere(smoothedCircleSize1 * 160); // outer sphere (stars)
 
             }
         }
@@ -144,6 +151,17 @@ public class MyVisual extends Visual
             cubes[i].display();
         }
 
+        translate(-600,-200,0);
+
+        for(int i = 0; i < balls.length; i++){
+
+            balls[i].movement();
+            balls[i].display();
+        }
+
+        translate(0,0,0);
+
     }
     float angle = 0;
+
 }
