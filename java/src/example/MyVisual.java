@@ -5,7 +5,8 @@ import processing.core.PApplet;
 
 public class MyVisual extends Visual
 {
-    Ball[] balls = new Ball[400];
+    Ball[] balls = new Ball[300];
+    Ball2[] balls2 = new Ball2[15];
 
     public static Boolean isEven (Integer i)
     {
@@ -43,11 +44,11 @@ public class MyVisual extends Visual
         setFrameSize(256);
 
         startMinim();
-        loadAudio("JEZIORKO.mp3");
+        loadAudio("BELLYACHE.mp3");
         //getAp().play();
         //startListening();
 
-        numCubes = (int)(5+getSpecSize() * strength);
+        numCubes = (int)(7+getSpecSize() * strength);
         cubes = new Cube[numCubes];
 
         for(int i = 0; i < numCubes; i++)
@@ -58,6 +59,10 @@ public class MyVisual extends Visual
         for(int i = 0; i < balls.length; i++){
             balls[i] = new Ball(this);
           }
+
+        for(int i = 0; i < balls2.length; i++){
+            balls2[i] = new Ball2(this);
+        }
 
     }
 
@@ -146,18 +151,29 @@ public class MyVisual extends Visual
             e.printStackTrace();
         }
 
+        translate(-400,0,0);
+
+        for(int i = 0; i < balls2.length; i++){
+
+            balls2[i].movement();
+            balls2[i].display();
+        }
+
+        translate(400,0,0);
+
         for(int i = 0; i < numCubes; i++) // Calls Cubes
         {
             cubes[i].display();
         }
 
-        translate(-600,-200,0);
+        translate(-550,-200,0);
 
         for(int i = 0; i < balls.length; i++){
 
             balls[i].movement();
             balls[i].display();
         }
+
 
         translate(0,0,0);
 
