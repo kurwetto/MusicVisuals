@@ -1,4 +1,4 @@
-package example;
+package C19434762;
 import processing.core.PApplet;
 
 public class Cube

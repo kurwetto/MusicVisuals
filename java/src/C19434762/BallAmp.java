@@ -1,4 +1,6 @@
-package example;
+package C19434762;
+
+import C19434762.MyVisual;
 
 public class BallAmp {
 
@@ -60,9 +62,9 @@ public class BallAmp {
     }
 
     void display(){
-        ba.strokeWeight(5.75f);
-        ba.stroke(ba.color(255,  0,200, 1+ ba.getAmplitude()* 500));
-        float size = 1.25f + (40 * ba.getSmoothedAmplitude()); // size of cubes
+        ba.strokeWeight(6.75f);
+        ba.stroke(ba.color(255,  0,200, 0.0001f + ba.getAmplitude()* 700));
+        float size = 4.75f + (40 * ba.getSmoothedAmplitude()); // size of cubes
         ba.circle(x,y,size);
 
     }

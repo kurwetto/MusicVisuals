@@ -1,4 +1,6 @@
-package example;
+package C19434762;
+
+import C19434762.MyVisual;
 
 public class Ball {
 
@@ -61,9 +63,9 @@ public class Ball {
     }
 
     void display(){
-        b.strokeWeight(1);
+        b.strokeWeight(0.85f);
         b.stroke(b.color(50,  150 + (500 * b.getAmplitude()),200));
-        float size = 1.25f + (40 * b.getSmoothedAmplitude()); // size of cubes
+        float size = 1.5f + (40 * b.getSmoothedAmplitude()); // size of cubes
         b.circle(x,y,size);
 
     }
