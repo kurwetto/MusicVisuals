@@ -1,71 +1,80 @@
 package C19434762;
 
-import C19434762.MyVisual;
-
 public class Ball {
 
     MyVisual b;
-    MyVisual b2;
 
     float x;
     float y;
-    float size;
     float speedX;
     float speedY;
-    float ballwidth;
-    float ballheight;
+    float ballWidth;
+    float ballHeight;
     int ballMax;
     int ballStart;
 
-    Ball(MyVisual b){
+    Ball(MyVisual b)
+    {
         b.translate(-200,-200,0);
-        ballwidth = b.width;
-        ballheight = b.height;
+        ballWidth = b.width;
+        ballHeight = b.height;
         this.b = b;
-        x = b.random(ballwidth+320);
-        y = b.random(ballheight+320);
+
+        x = b.random(ballWidth+320); // spawns within canvas
+        y = b.random(ballHeight+320);
 
         speedX = b.random(-2,2);
         speedY = b.random(-2,2);
+
     }
 
-    void movement(){
-
+    void movement()
+    {
         ballStart = 1;
         ballMax = 50;
 
-        if (speedX < 0 ) {
-            speedX = (ballMax * b.calculateAverageAmplitudeInverse() * -1 ); // speed of cube
+        if (speedX < 0 )
+        {
+            speedX = (ballMax * b.calculateAverageAmplitudeInverse() * -1 );  // amplitude and amplitude inverse
         }
-        else{
-            speedX = (ballMax * b.calculateAverageAmplitudeInverse() * 1 ); // speed of cube
-        }
-
-        if (speedY > 0 ) {
-            speedY = (ballMax * b.calculateAverageAmplitude() * 1); // speed of cube
-        }
-        else{
-            speedY = (ballMax * b.calculateAverageAmplitude() * -1); // speed of cube
+        else
+        {
+            speedX = (ballMax * b.calculateAverageAmplitudeInverse() * 1 );
         }
 
-        if ((x > ballwidth+320) || (x < 0)) {
+        if (speedY > 0 )
+        {
+            speedY = (ballMax * b.calculateAverageAmplitude() * 1);
+        }
+        else
+        {
+            speedY = (ballMax * b.calculateAverageAmplitude() * -1);
+        }
+
+        if ((x > ballWidth+320) || (x < 0))  // ball bounces back
+        {
             speedX = speedX * - 1;
             speedY += b.random(-1,1);
         }
 
-        if ((y > ballheight+320) || (y < 0)) {
+        if ((y > ballHeight+320) || (y < 0))
+        {
             speedY = speedY * - 1;
             speedX += b.random(-1,1);
         }
 
         x = x + speedX;
         y = y + speedY;
+
     }
 
-    void display(){
+    void display()
+    {
         b.strokeWeight(0.85f);
         b.stroke(b.color(50,  150 + (500 * b.getAmplitude()),200));
-        float size = 1.5f + (40 * b.getSmoothedAmplitude()); // size of cubes
+
+        float size = 1.5f + (40 * b.getSmoothedAmplitude()); // size of circle
+
         b.circle(x,y,size);
 
     }

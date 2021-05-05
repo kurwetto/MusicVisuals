@@ -1,12 +1,12 @@
 package C19434762;
-
 import processing.core.PApplet;
 
 public class Circles {
 
     MyVisual cr;
 
-    public Circles (MyVisual cr){
+    public Circles (MyVisual cr)
+    {
         this.cr = cr;
     }
 
@@ -18,35 +18,34 @@ public class Circles {
         cr.stroke(PApplet.map(cr.getSmoothedAmplitude(), 0, 1, 0, 255), 50, 255);
 
         cr.angle += 0.01f;
-            float CircleSize0 = 30 + (cr.getAmplitude() * 150);//map(average, 0, 1, 100, 400);
+        float CircleSize0 = 30 + (cr.getAmplitude() * 150);
         cr.smoothedCircleSize0 = PApplet.lerp(cr.smoothedCircleSize0, CircleSize0, 0.2f);
 
-            float CircleSize1 = 40 + (cr.getAmplitude() * 200);//map(average, 0, 1, 100, 400);
+        float CircleSize1 = 40 + (cr.getAmplitude() * 200);
         cr.smoothedCircleSize1 = PApplet.lerp(cr.smoothedCircleSize1, CircleSize1, 1);
 
         cr.translate(400, 400, -250);
-            for (int i = 1; i < 4; i++)
+        for (int i = 1; i < 4; i++)
+        {
+            if (MyVisual.isEven(i))
             {
+                cr.stroke(PApplet.map(cr.getSmoothedAmplitude(), 0, 1, 0, 255), 255,255,193);
+                cr.strokeWeight(1);
+                cr.circle(0,0,cr.smoothedCircleSize0 * 2); // surrounding circle
 
-                if (MyVisual.isEven(i))
-                {
-                    cr.stroke(PApplet.map(cr.getSmoothedAmplitude(), 0, 1, 0, 255), 255,255,193);
-                    cr.strokeWeight(1);
+            }
+            else
+            {
+                cr.stroke(PApplet.map(cr.getSmoothedAmplitude(), 0, 1, 0, 255),200, 500,200);
+                cr.strokeWeight(10);
+                cr.sphere(cr.smoothedCircleSize1 * 0.2f); // inner sphere
 
-                    cr.circle(0,0,cr.smoothedCircleSize0 * 2); // surrounding circle
+                cr.strokeWeight(0.0005f);
+                cr.stroke(PApplet.map(cr.getSmoothedAmplitude(), 0, 1, 0, 200), -200, 191,255);
+                cr.sphere(cr.smoothedCircleSize1 * 160); // outer sphere
 
-                }
-                else
-                {
-                    cr.stroke(PApplet.map(cr.getSmoothedAmplitude(), 0, 1, 0, 255),200, 500,200);
-                    cr.strokeWeight(10);
-                    cr.sphere(cr.smoothedCircleSize1 * 0.2f); // inner sphere
-                    cr.strokeWeight(0.009f);
-                    cr.stroke(PApplet.map(cr.getSmoothedAmplitude(), 0, 1, 0, 200), 0, 191,255);
-                    cr.sphere(cr.smoothedCircleSize1 * 160); // outer sphere (stars)
-
-                }
             }
         }
     }
+}
 

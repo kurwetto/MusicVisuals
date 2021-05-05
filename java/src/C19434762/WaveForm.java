@@ -4,7 +4,7 @@ import processing.core.PApplet;
 public class WaveForm
 {
     MyVisual wf;
-    float cy = 0;
+    float cy;
 
     public WaveForm(MyVisual wf)
     {
@@ -18,7 +18,7 @@ public class WaveForm
             wf.strokeWeight(0.1f);
             wf.colorMode(PApplet.HSB);
 
-            for(int i = 0 ; i < wf.getAudioBuffer().size(); i ++)
+            for(int i = 0 ; i < wf.getAudioBuffer().size(); i ++) // draws waveform
             {
                 wf.stroke(
                         PApplet.map(i, 0, wf.getAudioBuffer().size(), 0, 255)
@@ -28,8 +28,9 @@ public class WaveForm
 
                 float smoothedAmplitude = wf.calculateAverageAmplitude();
                 smoothedAmplitude = PApplet.lerp(wf.getAudioBuffer().get(i), smoothedAmplitude, 0.35f);
-                wf.line(i, cy, i+130, cy + cy * smoothedAmplitude);
-                wf.line(i*-1, cy, i*-1-130, cy + cy * smoothedAmplitude);
+
+                wf.line(i, cy, i+130, cy + cy * smoothedAmplitude); // waveform right
+                wf.line(i*-1, cy, i*-1-130, cy + cy * smoothedAmplitude); // waveform left inverse
 
             }
         }

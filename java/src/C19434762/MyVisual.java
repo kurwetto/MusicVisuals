@@ -1,7 +1,5 @@
 package C19434762;
-
 import ie.tudublin.*;
-import processing.core.PApplet;
 
 public class MyVisual extends Visual
 {
@@ -12,23 +10,23 @@ public class MyVisual extends Visual
 
     int numCubes;
     Cube[] cubes;
+    float angle = 0;
     float strength = 0.10f;
     float smoothedCircleSize0 = 0;
     float smoothedCircleSize1 = 0;
 
-    public static Boolean isEven (Integer i)
+    public static Boolean isEven (Integer i) // boolean for circles
     {
         return (i % 2)  == 0;
-
     }
 
     public void settings()
     {
-        size(800, 800, P3D);
+        size(800, 800, P3D); // canvas size
         println("CWD: " + System.getProperty("user.dir"));
     }
 
-    public void keyPressed()
+    public void keyPressed() // press space to start
     {
         if (key == ' ')
         {
@@ -47,22 +45,22 @@ public class MyVisual extends Visual
         setFrameSize(256);
 
         startMinim();
-        loadAudio("JEZIORKO.mp3");
+        loadAudio("JEZIORKO.mp3"); // your favourite song
 
-        numCubes = (int)(7 + getSpecSize() * strength);
+        numCubes = (int)(7 + getSpecSize() * strength); // number of cubes spawning
         cubes = new Cube[numCubes];
 
-        for(int i = 0; i < numCubes; i++)
+        for(int i = 0; i < numCubes; i++) // creates cube object
         {
             cubes[i] = new Cube(this);
         }
 
-        for(int i = 0; i < balls.length; i++)
+        for(int i = 0; i < balls.length; i++) // creates balls object
         {
             balls[i] = new Ball(this);
         }
 
-        for(int i = 0; i < ballAmps.length; i++)
+        for(int i = 0; i < ballAmps.length; i++) // creates ballsamp object
         {
             ballAmps[i] = new BallAmp(this);
         }
@@ -71,26 +69,24 @@ public class MyVisual extends Visual
         cr = new Circles(this);
     }
 
-
-
     public void draw()
     {
         colorMode(RGB);
         calculateAverageAmplitude();
         background(0);
 
-        cr.display();
+        cr.display(); // call circles
 
         translate(0,-400,0);
 
-        wf.render();
+        wf.render(); // call waveform
 
         translate(-400,0,0);
 
         translate(400,0,0);
 
         colorMode(RGB);
-        for(int i = 0; i < numCubes; i++) // Calls Cubes
+        for(int i = 0; i < numCubes; i++) // calls cube object
         {
             cubes[i].display();
         }
@@ -98,14 +94,15 @@ public class MyVisual extends Visual
         translate(-550,-200,0);
 
         colorMode(RGB);
-        for (Ball ball : balls)
+
+        for (Ball ball : balls) // calls balls (blue)
         {
             ball.movement();
             ball.display();
 
         }
 
-        for (BallAmp ballAmp : ballAmps)
+        for (BallAmp ballAmp : ballAmps) // calls balls amp (pink)
         {
             ballAmp.movement();
             ballAmp.display();
@@ -115,6 +112,4 @@ public class MyVisual extends Visual
         translate(0,0,0);
 
     }
-    float angle = 0;
-
 }

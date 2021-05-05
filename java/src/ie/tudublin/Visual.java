@@ -20,10 +20,8 @@ public abstract class Visual extends PApplet
 
 	public float amplitude  = 0;
 	public float amplitudeInverse =0;
-	private float smothedAmplitude = 0;
+	private float smoothedAmplitude = 0;
 
-	
-	
 	public void startMinim() 
 	{
 		minim = new Minim(this);
@@ -52,7 +50,6 @@ public abstract class Visual extends PApplet
 		}
 	}
 
-	
 	public float calculateAverageAmplitude()
 	{
 		float total = 0;
@@ -61,8 +58,9 @@ public abstract class Visual extends PApplet
 			total += abs(ab.get(i));
 		}
 		amplitude = total / 1000;
-		smothedAmplitude = PApplet.lerp(smothedAmplitude, amplitude, 0.01f);
-		return smothedAmplitude;
+		smoothedAmplitude = PApplet.lerp(smoothedAmplitude, amplitude, 0.01f);
+		return smoothedAmplitude;
+
 	}
 
 	public float calculateAverageAmplitudeInverse()
@@ -73,18 +71,20 @@ public abstract class Visual extends PApplet
 			total -= abs(ab.get(i));
 		}
 		amplitudeInverse = total / 1000;
-		smothedAmplitude = PApplet.lerp(smothedAmplitude, amplitudeInverse, 0.01f);
+		smoothedAmplitude = PApplet.lerp(smoothedAmplitude, amplitudeInverse, 0.01f);
 		return amplitudeInverse;
+
 	}
 
-
 	protected void calculateFrequencyBands() {
-		for (int i = 0; i < bands.length; i++) {
+		for (int i = 0; i < bands.length; i++)
+		{
 			int start = (int) pow(2, i) - 1;
 			int w = (int) pow(2, i);
 			int end = start + w;
 			float average = 0;
-			for (int j = start; j < end; j++) {
+			for (int j = start; j < end; j++)
+			{
 				average += fft.getBand(j) * (j + 1);
 			}
 			average /= (float) w;
@@ -137,7 +137,6 @@ public abstract class Visual extends PApplet
 		return ai;
 	}
 
-
 	public AudioBuffer getAudioBuffer() {
 		return ab;
 	}
@@ -147,7 +146,7 @@ public abstract class Visual extends PApplet
 	}
 
 	public float getSmoothedAmplitude() {
-		return smothedAmplitude;
+		return smoothedAmplitude;
 	}
 
 	public AudioPlayer getAudioPlayer() {
@@ -158,9 +157,6 @@ public abstract class Visual extends PApplet
 	{
 		return fft.specSize();
 	}
-
-
-
 
 	public FFT getFFT() {
 		return fft;
