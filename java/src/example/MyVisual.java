@@ -5,9 +5,8 @@ import processing.core.PApplet;
 
 public class MyVisual extends Visual
 {
-    Ball[] balls = new Ball[300];
-    Ball2[] balls2 = new Ball2[15];
-
+    Ball[] balls = new Ball[200];
+    BallAmp[] ballAmps = new BallAmp[150];
     public static Boolean isEven (Integer i)
     {
         return (i % 2)  == 0;
@@ -38,13 +37,13 @@ public class MyVisual extends Visual
     public void setup()
     {
         startMinim();
-        colorMode(HSB);
+        colorMode(RGB);
         noCursor();
 
         setFrameSize(256);
 
         startMinim();
-        loadAudio("BELLYACHE.mp3");
+        loadAudio("JEZIORKO.mp3");
         //getAp().play();
         //startListening();
 
@@ -60,8 +59,8 @@ public class MyVisual extends Visual
             balls[i] = new Ball(this);
           }
 
-        for(int i = 0; i < balls2.length; i++){
-            balls2[i] = new Ball2(this);
+        for(int i = 0; i < ballAmps.length; i++){
+            ballAmps[i] = new BallAmp(this);
         }
 
     }
@@ -70,7 +69,7 @@ public class MyVisual extends Visual
     float smoothedCircleSize1 = 0;
 
     public void drawWaveform() throws VisualException {
-
+        colorMode(HSB);
         // Call this is you want to use frequency bands
         calculateFrequencyBands();
 
@@ -79,7 +78,7 @@ public class MyVisual extends Visual
 
         calculateFFT();
         int cy = this.height/2;
-        colorMode(PApplet.HSB);
+
         strokeWeight(0.1f);
 
         for(int i = 0 ; i < getAudioBuffer().size(); i ++)
@@ -100,6 +99,7 @@ public class MyVisual extends Visual
 
     public void loopcircles()
     {
+        colorMode(HSB);
         noFill();
         lights();
         stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255), 50, 255);
@@ -117,7 +117,6 @@ public class MyVisual extends Visual
 
             if (isEven(i))
             {
-                colorMode(PApplet.HSB);
                 stroke(map(getSmoothedAmplitude(), 0, 1, 0, 255), 255,255,193);
                 strokeWeight(1);
 
@@ -139,6 +138,7 @@ public class MyVisual extends Visual
 
     public void draw()
     {
+        colorMode(RGB);
         calculateAverageAmplitude();
         background(0);
         loopcircles(); // Calls Circles
@@ -153,14 +153,9 @@ public class MyVisual extends Visual
 
         translate(-400,0,0);
 
-        for(int i = 0; i < balls2.length; i++){
-
-            balls2[i].movement();
-            balls2[i].display();
-        }
-
         translate(400,0,0);
 
+        colorMode(RGB);
         for(int i = 0; i < numCubes; i++) // Calls Cubes
         {
             cubes[i].display();
@@ -168,12 +163,18 @@ public class MyVisual extends Visual
 
         translate(-550,-200,0);
 
-        for(int i = 0; i < balls.length; i++){
+        colorMode(RGB);
+        for (Ball ball : balls) {
+            ball.movement();
+            ball.display();
 
-            balls[i].movement();
-            balls[i].display();
         }
 
+        for (BallAmp ballAmp : ballAmps) {
+            ballAmp.movement();
+            ballAmp.display();
+
+        }
 
         translate(0,0,0);
 

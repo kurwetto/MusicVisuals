@@ -1,12 +1,9 @@
 package example;
 
-import processing.core.PApplet;
-
-import java.awt.*;
-
 public class Ball {
 
     MyVisual b;
+    MyVisual b2;
 
     float x;
     float y;
@@ -25,7 +22,7 @@ public class Ball {
         this.b = b;
         x = b.random(ballwidth+320);
         y = b.random(ballheight+320);
-        size = 1.75f;
+
         speedX = b.random(-2,2);
         speedY = b.random(-2,2);
     }
@@ -65,7 +62,8 @@ public class Ball {
 
     void display(){
         b.strokeWeight(1);
-        b.stroke(b.map(b.getAmplitude(), 100, 200, 0, 255), -200,190,255);
+        b.stroke(b.color(50,  150 + (500 * b.getAmplitude()),200));
+        float size = 1.25f + (40 * b.getSmoothedAmplitude()); // size of cubes
         b.circle(x,y,size);
 
     }
