@@ -25,7 +25,7 @@ I created varius classes.
 4) Cube
 5) Waveform
 
-#Ball
+# Ball
 The balls are in an array which creates the background images of the stars(blue), their movement is based off the beat or amplitude of the song ( when the beat switches the amplitude inverses) and bounce off the sides of canvas.
 ```Java
    void display()
@@ -41,7 +41,7 @@ The balls are in an array which creates the background images of the stars(blue)
 ```
 This code draws the cirlce at the end of the class.
 
-#BallAmp
+# BallAmp
 The balls are in an array which creates the background image of the stars(pink), they work the same way as the balls above however they remain invisble until the amplitude increases, this is done by * the transparency by the ampltitude.
 ```Java
    void display()
@@ -50,7 +50,7 @@ The balls are in an array which creates the background image of the stars(pink),
         ba.stroke(ba.color(255,  0,200, 0.0001f + ba.getAmplitude()* 700));
 ```
 
-#Cube
+# Cube
 The cubes spawn at a negative z location whilst rotating and flying towards their maximum z value. They change size, color and transparency based on amplitude.
 ```Java
  void display()
@@ -83,7 +83,31 @@ The cubes spawn at a negative z location whilst rotating and flying towards thei
             }
         }
 ```
+# WaveForm
+The waveform was by far the trickiest to get right, but it also turned out the best in my opinion. There are two lines, and one of them is inversed, the waveform is essentially created of two parts. The lines dimensions and colors vary depending on the amplitude of the song.
+```Java
+public void render()
+        {
+            wf.strokeWeight(0.1f);
+            wf.colorMode(PApplet.HSB);
 
+            for(int i = 0 ; i < wf.getAudioBuffer().size(); i ++) // draws waveform
+            {
+                wf.stroke(
+                        PApplet.map(i, 0, wf.getAudioBuffer().size(), 0, 255)
+                        , 255
+                        , 255
+                );
+
+                float smoothedAmplitude = wf.calculateAverageAmplitude();
+                smoothedAmplitude = PApplet.lerp(wf.getAudioBuffer().get(i), smoothedAmplitude, 0.35f);
+
+                wf.line(i, cy, i+130, cy + cy * smoothedAmplitude); // waveform right
+                wf.line(i*-1, cy, i*-1-130, cy + cy * smoothedAmplitude); // waveform left inverse
+
+            }
+        }
+```
 # What I am most proud of in the assignment
 
 # Markdown Tutorial
