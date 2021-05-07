@@ -17,7 +17,7 @@ For this assignment I was required to create my own version of an audio visualis
 # Instructions
 
 # How it works
-I created varius classes.
+I created varius classes which were then called in MyVisual.
 
 1) Ball
 2) BallAmp
